@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-
+import Loading from '../component/loading';
+import Error from '../component/error';
+import List from '../component/list';
 function QuotesPage() {
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -28,46 +30,20 @@ function QuotesPage() {
 
   if (loading) {
     return (
-      <div className="text-center p-8">
-        <div className="spinner w-10 h-10 border-4 border-gray-200 border-t-4 border-t-blue-500 rounded-full mx-auto"></div>
-        <p className="mt-4 text-gray-600 font-medium">Loading inspirational quotes...</p>
-      </div>
+      <Loading />
     );
   }
 
   if (error) {
     return (
-      <div className="p-6 m-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded">
-        <p className="font-bold">Error</p>
-        <p>{error}</p>
-      </div>
+      <Error/>
     );
   }
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold text-gray-800 border-b-2 border-blue-500 pb-2 mb-6">
-        Inspirational Quotes
-      </h1>
-      
-      <ul className="space-y-3">
-        {quotes.map(quote => (
-          <li 
-            key={quote.id} 
-            className="p-4 border rounded-lg shadow-sm bg-white flex justify-between items-center"
-          >
-            <span className="text-lg text-gray-800">
-              {quote.text} 
-            </span>
-            <span className="px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
-               {quote.description}
-            </span>
-          </li>
-        ))}
-      </ul>
-      
-      
-    </div>
+    <List
+    title="Inspirational Quotes"
+    items={quotes}/>
   );
 }
 
